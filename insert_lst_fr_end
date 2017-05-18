@@ -1,0 +1,63 @@
+typedef struct		s_plst
+{
+	int data;
+	int group;
+	struct s_plst *next;
+}					t_plst;
+
+t_plst *new_lst(char *s)
+{
+	t_plst *new;
+
+	new = malloc(sizeof(t_plst));
+	new->data = ft_atoi(s);
+	new->next = NULL;
+	return (new);
+}
+
+void	intert_lst_front(t_plst **lst, t_plst *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
+
+void	intert_lst_end(t_plst **lst, t_plst *new)
+{
+	t_plst *cur;
+
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		cur = *lst;
+		while (cur->next)
+			cur = cur->next;
+		cur->next = new;
+	}
+}
+
+void	print_lst(t_plst *lst)
+{
+	t_plst *cur;
+
+	cur = lst;
+	while (cur)
+	{
+		ft_printf("%d\n", cur->data);
+		cur = cur->next;
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	t_plst *lst;
+
+	lst = NULL;
+	intert_lst_front(&lst, new_lst(argv[1]));
+	intert_lst_front(&lst, new_lst(argv[2]));
+	intert_lst_front(&lst, new_lst(argv[3]));
+	intert_lst_front(&lst, new_lst(argv[4]));
+
+	ft_printf("original :\n");
+	print_lst(lst);
+}
